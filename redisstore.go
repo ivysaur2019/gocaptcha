@@ -49,11 +49,11 @@ func CreateCaptchaRedisStore(config *StoreConfig) (StoreInterface, error) {
 	opt.Addr = addr
 	opt.DB = int64(db)
 	opt.PoolSize = 0
-	if len(config.Password)>0{
+	if len(config.Password) > 0 {
 		opt.Password = config.Password
 	}
 	opt.Network = "tcp"
-	if len(config.NetWork)>0{
+	if len(config.NetWork) > 0 {
 		opt.Network = config.NetWork
 	}
 	stg := redis.NewClient(&opt)
@@ -79,10 +79,10 @@ func (this *CaptchaRedisStore) Add(captcha *CaptchaInfo) string {
 
 	val, err := this.encodeCaptchaInfo(captcha)
 	if err == nil {
-		result, error :=this.stg.SetEx(key, this.lifeTime, string(val)).Result()
+		_, error := this.stg.SetEx(key, this.lifeTime, string(val)).Result()
 		if error != nil {
 			log.Printf("add key in redis error:%s", error)
-		}else{
+		} else {
 			//log.Printf("add key in redis %s", result)
 		}
 
@@ -93,11 +93,11 @@ func (this *CaptchaRedisStore) Add(captcha *CaptchaInfo) string {
 func (this *CaptchaRedisStore) Update(key string, captcha *CaptchaInfo) bool {
 	val, err := this.encodeCaptchaInfo(captcha)
 	if err == nil {
-		result, error :=this.stg.Set(key, string(val)).Result()
+		_, error := this.stg.Set(key, string(val)).Result()
 		if error != nil {
 			log.Printf("set key in redis error:%s", error)
 			return false
-		}else{
+		} else {
 			//log.Printf("set key in redis %s", result)
 			return true
 		}
