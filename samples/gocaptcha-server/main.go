@@ -46,7 +46,7 @@ func GetKeyHandler(w http.ResponseWriter, r *http.Request) {
 	callback := html.EscapeString(r.FormValue("callback"))
 
 	key, err := ccaptcha.GetKey(4)
-	retstr := "{\"code\":%d,\"msg\":\"%s\",\"data\":{\"key\":\"%s\"}"
+	retstr := "{\"code\":%d,\"msg\":\"%s\",\"data\":{\"key\":\"%s\"}}"
 
 	error_no := 0
 	error_msg := ""
@@ -73,7 +73,7 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 	code := r.FormValue("code")
 	callback := html.EscapeString(r.FormValue("callback"))
 
-	retstr := "{\"code\":%d,\"msg\":\"%s\",\"data\":{\"key\":\"%s\"}"
+	retstr := "{\"code\":%d,\"msg\":\"%s\",\"data\":{\"key\":\"%s\"}}"
 	error_no := 0
 	error_msg := ""
 
