@@ -12,7 +12,7 @@ import (
 	"path/filepath"
 
 	"github.com/hanguofeng/config"
-	"github.com/hanguofeng/gocaptcha"
+	"github.com/ivysaur2019/gocaptcha"
 )
 
 var (
@@ -46,7 +46,7 @@ func GetKeyHandler(w http.ResponseWriter, r *http.Request) {
 	callback := html.EscapeString(r.FormValue("callback"))
 
 	key, err := ccaptcha.GetKey(4)
-	retstr := "{error_no:%d,error_msg:'%s',key:'%s'}"
+	retstr := "{\"code\":%d,\"msg\":\"%s\",\"data\":{\"key\":\"%s\"}"
 
 	error_no := 0
 	error_msg := ""
@@ -73,7 +73,7 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 	code := r.FormValue("code")
 	callback := html.EscapeString(r.FormValue("callback"))
 
-	retstr := "{error_no:%d,error_msg:'%s',key:'%s'}"
+	retstr := "{\"code\":%d,\"msg\":\"%s\",\"data\":{\"key\":\"%s\"}"
 	error_no := 0
 	error_msg := ""
 
@@ -96,17 +96,7 @@ func VerifyHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	retstr := "<html>"
-	retstr += "<body>"
-	retstr += "<h1>gocaptcha server</h1>"
-	retstr += "<h2>document</h2>"
-	retstr += "<p>see:<a href='https://github.com/hanguofeng/gocaptcha/tree/master/samples/gocaptcha-server'>https://github.com/hanguofeng/gocaptcha/tree/master/samples/gocaptcha-server</a></p>"
-	retstr += "<h2>interface</h2>"
-	retstr += "<p><a href='/getkey'>/getkey</a></p>"
-	retstr += "<p><a href='/showimage'>/showimage</a></p>"
-	retstr += "<p><a href='/verify'>/verify</a></p>"
-	retstr += "</body>"
-	retstr += "</html>"
+	retstr := "welcome"
 	w.Write([]byte(retstr))
 }
 

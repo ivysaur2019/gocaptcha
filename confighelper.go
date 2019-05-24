@@ -138,15 +138,21 @@ func loadConfigFromFile(configFile string) (error, string, *CaptchaConfig, *Imag
 	}
 	gcProbability, err := c.Int("store", "gc_probability")
 	if nil != err {
-		storeConfig.GcProbability = gcProbability
-	} else {
 		storeConfig.GcProbability = DEFAULT_GC_PROBABILITY
+	} else {
+		storeConfig.GcProbability = gcProbability
 	}
 	gcDivisor, err := c.Int("store", "gc_divisor")
 	if nil != err {
-		storeConfig.GcDivisor = gcDivisor
-	} else {
 		storeConfig.GcDivisor = DEFAULT_GC_DIVISOR
+	} else {
+		storeConfig.GcDivisor = gcDivisor
+	}
+	password, err := c.String("store", "password")
+	if nil != err {
+		storeConfig.Password = ""
+	} else {
+		storeConfig.Password = password
 	}
 
 	if nil != err && nil == retErr {
